@@ -8,22 +8,24 @@ function App() {
       <div className="app-container">
         <img />
         <div className="basic-info">
-          <p>
-            25*c
-            <button className="refresh">
-              <FontAwesomeIcon icon={faArrowsRotate} />
-            </button>
-          </p>
+          <button className="refresh">
+            <FontAwesomeIcon icon={faArrowsRotate} />
+          </button>
+          <p>25*c</p>
           <p>Location</p>
+          <p>Updated time</p>
         </div>
 
         <div className="more-info">
-          <button>
+          <div>
+            <button>
               <FontAwesomeIcon icon={faCaretDown} />
-            More Info...
-          </button>
+              More Info...
+            </button>
+          </div>
         </div>
       </div>
+      <footer>FCC free weather app</footer>
     </div>
   );
 }
