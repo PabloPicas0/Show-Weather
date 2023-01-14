@@ -8,7 +8,7 @@ import "./index.scss";
 function App() {
   const [weatherInfo, setWeatherInfo] = useState(null);
   const [hours, setHours] = useState(null);
-  const [minutes, setMinutes] = useState(null)
+  const [minutes, setMinutes] = useState(null);
 
   const fetchWeatherInfo = () => {
     fetch("https://weather-proxy.freecodecamp.rocks/api/current?lat=35&lon=139")
@@ -20,7 +20,7 @@ function App() {
   };
 
   const handleFahrenheitConvert = (temp) => {
-    return (temp * 1, 8) + 32;
+    return Math.floor((9/5 * temp) + 32);
   };
 
   const handleTime = () => {
@@ -30,27 +30,30 @@ function App() {
     let hours = date.getHours();
     let minutes = date.getMinutes();
 
-    setHours(hours)
-    setMinutes(minutes)
+    setHours(hours);
+    setMinutes(minutes);
   };
 
   useEffect(() => {
     fetchWeatherInfo();
-    handleTime()
+    handleTime();
   }, []);
 
   return (
     <div className="App">
       <div className="app-container">
-        <img />
+        <img src={weatherInfo?.weather[0].icon} alt="A icon of current weather" className="weather-icon" />
         <div className="basic-info">
-          <button type="button" className="refresh" onClick={() => {
-            fetchWeatherInfo()
-            handleTime()
-          }}>
+          <button
+            type="button"
+            className="refresh"
+            onClick={() => {
+              fetchWeatherInfo();
+              handleTime();
+            }}>
             <FontAwesomeIcon icon={faArrowsRotate} />
           </button>
-          <p>{weatherInfo !== null ? handleFahrenheitConvert(weatherInfo.main.temp) : "Loading..."}</p>
+          <p>{weatherInfo !== null ? `${handleFahrenheitConvert(weatherInfo.main.temp)}°F` : "Loading..."}</p>
           <p>{weatherInfo !== null ? weatherInfo.name : "Loading..."}</p>
           <p>{`Updated ${hours < 10 ? "0" + hours : hours}:${minutes < 10 ? "0" + minutes : minutes} `}</p>
         </div>

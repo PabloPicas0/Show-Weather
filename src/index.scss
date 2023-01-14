@@ -19,6 +19,7 @@ body {
 }
 
 .app-container {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -56,4 +57,11 @@ body {
   height: 100px;
   background-color: rgba($color: #000000, $alpha: 0.2);
   border-radius: 0 0 13rem 13rem;
+}
+
+.weather-icon {
+  position: absolute;
+  bottom: 170px;
+  width: 60px;
+  height: 60px;
 }
