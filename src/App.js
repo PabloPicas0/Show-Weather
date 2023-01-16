@@ -20,7 +20,7 @@ function App() {
   };
 
   const handleFahrenheitConvert = (temp) => {
-    return Math.floor((9/5 * temp) + 32);
+    return Math.floor((9 / 5) * temp + 32);
   };
 
   const handleTime = () => {
@@ -77,12 +77,36 @@ function App() {
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
-              <h1>Accurate weather Info</h1>
+              <h1 className="modal-title fs-5" id="stacicBackdropLabel">
+                Accurate weather Info
+              </h1>
               <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
             <div className="modal-body">
-              fdfsdfsd
+              <p className="underscore">{weatherInfo !== null ? `${weatherInfo.name}, ${weatherInfo.sys.country}` : "Loading..."}</p>
+              <div className="underscore d-flex justify-content-evenly">
+                <div className="d-flex align-items-center ms-5">{weatherInfo !== null ? weatherInfo.main.temp : "Loading..."}</div>
+
+                <img src={weatherInfo?.weather[0].icon} alt={`A icon shows ${weatherInfo?.weather[0].description}`} className="" />
+
+                <div className="me-5">
+                  <div>{weatherInfo !== null ? weatherInfo.main.temp_max : "Loading..."}</div>
+                  <div>{weatherInfo !== null ? weatherInfo.main.temp_min : "Loading..."}</div>
+                </div>
+              </div>
+
+              <div className="underscore d-flex justify-content-evenly">
+                <div>
+                  <div>{weatherInfo !== null ? `Wind: ${weatherInfo.wind.speed} m/s` : "Loading..."}</div>
+                  <div>{weatherInfo !== null ? `Sunrise: ${weatherInfo.sys.sunrise}` : "Loading..."}</div>
+                </div>
+
+                <div>
+                  <div>{weatherInfo !== null ? `Humidity: ${weatherInfo.main.humidity}%` : "Loading..."}</div>
+                  <div>{weatherInfo !== null ? `Sunset: ${weatherInfo.sys.sunset}` : "Loading..."}</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
