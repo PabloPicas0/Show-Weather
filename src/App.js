@@ -24,8 +24,6 @@ function App() {
   };
 
   const handleTime = () => {
-    //TODO
-    //You have timzone proprety in fetched object use it instead date
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();
@@ -41,8 +39,8 @@ function App() {
 
   return (
     <div className="App">
-      <div className="app-container">
-        <img src={weatherInfo?.weather[0].icon} alt="A icon of current weather" className="weather-icon" />
+      <div className="widget-container">
+        <img src={weatherInfo?.weather[0].icon} alt={`A icon shows ${weatherInfo?.weather[0].description}`} className="weather-icon" />
         <div className="basic-info">
           <button
             type="button"
@@ -60,10 +58,32 @@ function App() {
 
         <div className="more-info">
           <div>
-            <button type="button">
+            <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
               <FontAwesomeIcon icon={faCaretDown} />
               More Info...
             </button>
+          </div>
+        </div>
+      </div>
+
+      <div
+        className="modal fade"
+        id="staticBackdrop"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabIndex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h1>Accurate weather Info</h1>
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div className="modal-body">
+              fdfsdfsd
+            </div>
           </div>
         </div>
       </div>
