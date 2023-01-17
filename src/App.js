@@ -16,7 +16,7 @@ function App() {
       .then((data) => {
         setWeatherInfo(data);
       });
-    console.log(new Date(), weatherInfo);
+    console.log(weatherInfo);
   };
 
   const handleFahrenheitConvert = (temp) => {
@@ -24,9 +24,14 @@ function App() {
   };
 
   const handleTime = () => {
+    const offset = weatherInfo?.timezone
+
     let date = new Date();
+    date.setUTCMinutes(date.getUTCMinutes() + offset / 60)
     let hours = date.getHours();
     let minutes = date.getMinutes();
+
+    console.log(date)
 
     setHours(hours);
     setMinutes(minutes);
@@ -40,7 +45,7 @@ function App() {
   return (
     <div className="App">
       <div className="widget-container">
-        <img src={weatherInfo?.weather[0].icon} alt={`A icon shows ${weatherInfo?.weather[0].description}`} className="weather-icon" />
+        <img src={weatherInfo?.weather[0].icon} alt="Weather Icon" className="weather-icon" />
         <div className="basic-info">
           <button
             type="button"
