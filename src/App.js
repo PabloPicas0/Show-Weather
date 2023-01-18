@@ -7,11 +7,13 @@ import "./index.scss";
 
 function App() {
   const [weatherInfo, setWeatherInfo] = useState(null);
+  const [latitude, setLatitude] = useState(35)
+  const [longitude, setLongitude] = useState(139)
   const [hours, setHours] = useState(null);
   const [minutes, setMinutes] = useState(null);
 
   const fetchWeatherInfo = () => {
-    fetch("https://weather-proxy.freecodecamp.rocks/api/current?lat=35&lon=139")
+    fetch(`https://weather-proxy.freecodecamp.rocks/api/current?lat=${latitude}&lon=${longitude}`)
       .then((response) => response.json())
       .then((data) => {
         setWeatherInfo(data);
@@ -31,13 +33,26 @@ function App() {
     let hours = date.getHours();
     let minutes = date.getMinutes();
 
-    console.log(date)
-
     setHours(hours);
     setMinutes(minutes);
   };
 
+  const findMe = () => {
+    let findGeolocation = navigator.geolocation
+
+    const success = (position) => {
+      let lat = position.coords.latitude
+      let long = position.coords.longitude
+
+      setLatitude(lat)
+      setLongitude(long)
+    }
+    
+    findGeolocation.getCurrentPosition(success)
+  }
+
   useEffect(() => {
+    findMe();
     fetchWeatherInfo();
     handleTime();
   }, []);
