@@ -7,13 +7,14 @@ import "./index.scss";
 
 function App() {
   const [weatherInfo, setWeatherInfo] = useState(null);
+  const [temperature, setTemperature] = useState(false)
   const [latitude, setLatitude] = useState(35)
   const [longitude, setLongitude] = useState(139)
   const [hours, setHours] = useState(null);
   const [minutes, setMinutes] = useState(null);
 
-  const fetchWeatherInfo = () => {
-    fetch(`https://weather-proxy.freecodecamp.rocks/api/current?lat=${latitude}&lon=${longitude}`)
+  const fetchWeatherInfo = (api) => {
+    fetch(api)
       .then((response) => response.json())
       .then((data) => {
         setWeatherInfo(data);
@@ -43,9 +44,12 @@ function App() {
     const success = (position) => {
       let lat = position.coords.latitude
       let long = position.coords.longitude
+      const request = `https://weather-proxy.freecodecamp.rocks/api/current?lat=${lat}&lon=${long}`;
 
+      fetchWeatherInfo(request)
       setLatitude(lat)
       setLongitude(long)
+      console.log(position)
     }
     
     findGeolocation.getCurrentPosition(success)
@@ -53,7 +57,6 @@ function App() {
 
   useEffect(() => {
     findMe();
-    fetchWeatherInfo();
     handleTime();
   }, []);
 
@@ -66,7 +69,7 @@ function App() {
             type="button"
             className="refresh"
             onClick={() => {
-              fetchWeatherInfo();
+              fetchWeatherInfo(`https://weather-proxy.freecodecamp.rocks/api/current?lat=${latitude}&lon=${longitude}`);
               handleTime();
             }}>
             <FontAwesomeIcon icon={faArrowsRotate} />
