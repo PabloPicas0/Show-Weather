@@ -23,10 +23,39 @@ function App() {
   };
 
   const handleFahrenheitConvert = (temp) => {
+    //TODO: You want to swich between celcus and fahrenheit 
     return Math.floor((9 / 5) * temp + 32);
   };
 
+  const handleDirection = (degree) => {
+    if(degree === 0) {
+      return "N"
+    }
+    if(degree > 0 && degree < 90) {
+      return "NE"
+    }
+    if(degree === 90) {
+      return "E"
+    }
+    if(degree > 90 && degree < 180) {
+      return "SE"
+    }
+    if(degree === 180) {
+      return "S"
+    }
+    if (degree > 180 && degree < 270) {
+      return "SW"
+    }
+    if(degree === 270) {
+      return "W"
+    }
+    if(degree > 270 && degree < 350) {
+      return "NW"
+    }
+  }
+
   const handleTime = () => {
+    //TODO: Fix this cuz its vroken and at first load return NaN or not correct time
     const offset = weatherInfo?.timezone
 
     let date = new Date();
@@ -121,7 +150,7 @@ function App() {
 
               <div className="underscore d-flex justify-content-evenly">
                 <div>
-                  <div>{weatherInfo !== null ? `Wind: ${weatherInfo.wind.speed} m/s` : "Loading..."}</div>
+                  <div>{weatherInfo !== null ? `Wind: ${handleDirection(weatherInfo.wind.deg)} ${weatherInfo.wind.speed} m/s` : "Loading..."}</div>
                   <div>{weatherInfo !== null ? `Sunrise: ${weatherInfo.sys.sunrise}` : "Loading..."}</div>
                 </div>
 
