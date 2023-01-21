@@ -55,17 +55,22 @@ function App() {
   }
 
   const handleTime = () => {
-    //TODO: Fix this cuz its vroken and at first load return NaN or not correct time
-    const offset = weatherInfo?.timezone
-
     let date = new Date();
-    date.setUTCMinutes(date.getUTCMinutes() + offset / 60)
     let hours = date.getHours();
     let minutes = date.getMinutes();
-
+  
     setHours(hours);
     setMinutes(minutes);
   };
+
+  const handleTimeConvertion = (timestamp) => {
+    const date = new Date(timestamp * 1000)
+
+    const hours = date.getHours()
+    const minutes = date.getMinutes()
+
+    return `${hours}:${minutes}`
+  }
 
   const findMe = () => {
     let findGeolocation = navigator.geolocation
@@ -78,7 +83,7 @@ function App() {
       fetchWeatherInfo(request)
       setLatitude(lat)
       setLongitude(long)
-      console.log(position)
+      console.log(position, `Sunset is ${new Date(1674312942 * 1000)}`);
     }
     
     findGeolocation.getCurrentPosition(success)
@@ -151,12 +156,12 @@ function App() {
               <div className="underscore d-flex justify-content-evenly">
                 <div>
                   <div>{weatherInfo !== null ? `Wind: ${handleDirection(weatherInfo.wind.deg)} ${weatherInfo.wind.speed} m/s` : "Loading..."}</div>
-                  <div>{weatherInfo !== null ? `Sunrise: ${weatherInfo.sys.sunrise}` : "Loading..."}</div>
+                  <div>{weatherInfo !== null ? `Sunrise: ${handleTimeConvertion(weatherInfo.sys.sunrise)}` : "Loading..."}</div>
                 </div>
 
                 <div>
                   <div>{weatherInfo !== null ? `Humidity: ${weatherInfo.main.humidity}%` : "Loading..."}</div>
-                  <div>{weatherInfo !== null ? `Sunset: ${weatherInfo.sys.sunset}` : "Loading..."}</div>
+                  <div>{weatherInfo !== null ? `Sunset: ${handleTimeConvertion(weatherInfo.sys.sunset)}` : "Loading..."}</div>
                 </div>
               </div>
             </div>
