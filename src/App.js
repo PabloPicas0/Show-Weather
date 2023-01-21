@@ -19,11 +19,9 @@ function App() {
       .then((data) => {
         setWeatherInfo(data);
       });
-    console.log(weatherInfo);
   };
 
   const handleTemperatureConvert = (temp, toggle) => {
-    //TODO: You want to swich between celcus and fahrenheit
     if (toggle === false) {
       return `${Math.floor(temp)}°C`;
     }
@@ -86,7 +84,6 @@ function App() {
       fetchWeatherInfo(request);
       setLatitude(lat);
       setLongitude(long);
-      console.log(position, `Sunset is ${new Date(1674312942 * 1000)}`);
     };
 
     findGeolocation.getCurrentPosition(success);
@@ -112,7 +109,7 @@ function App() {
             <FontAwesomeIcon icon={faArrowsRotate} />
           </button>
           <p className="clickableTemperature" onClick={() => setTemperature(!temperature)}>
-            {weatherInfo !== null ? `${handleTemperatureConvert(weatherInfo.main.temp, temperature)}` : "Loading..."}
+            {weatherInfo !== null ? handleTemperatureConvert(weatherInfo.main.temp, temperature) : "Loading..."}
           </p>
           <p>{weatherInfo !== null ? weatherInfo.name : "Loading..."}</p>
           <p>{`Updated ${hours < 10 ? "0" + hours : hours}:${minutes < 10 ? "0" + minutes : minutes} `}</p>
@@ -148,7 +145,9 @@ function App() {
             <div className="modal-body">
               <p className="underscore">{weatherInfo !== null ? `${weatherInfo.name}, ${weatherInfo.sys.country}` : "Loading..."}</p>
               <div className="underscore d-flex justify-content-evenly">
-                <div className="d-flex align-items-center ms-5">{weatherInfo !== null ? handleTemperatureConvert(weatherInfo.main.temp, temperature) : "Loading..."}</div>
+                <div className="d-flex align-items-center ms-5">
+                  {weatherInfo !== null ? handleTemperatureConvert(weatherInfo.main.temp, temperature) : "Loading..."}
+                </div>
 
                 <img src={weatherInfo?.weather[0].icon} alt={`A icon shows ${weatherInfo?.weather[0].description}`} className="" />
 
