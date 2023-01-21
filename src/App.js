@@ -7,9 +7,9 @@ import "./index.scss";
 
 function App() {
   const [weatherInfo, setWeatherInfo] = useState(null);
-  const [temperature, setTemperature] = useState(false)
-  const [latitude, setLatitude] = useState(35)
-  const [longitude, setLongitude] = useState(139)
+  const [temperature, setTemperature] = useState(false);
+  const [latitude, setLatitude] = useState(35);
+  const [longitude, setLongitude] = useState(139);
   const [hours, setHours] = useState(null);
   const [minutes, setMinutes] = useState(null);
 
@@ -22,72 +22,75 @@ function App() {
     console.log(weatherInfo);
   };
 
-  const handleFahrenheitConvert = (temp) => {
-    //TODO: You want to swich between celcus and fahrenheit 
-    return Math.floor((9 / 5) * temp + 32);
+  const handleTemperatureConvert = (temp, toggle) => {
+    //TODO: You want to swich between celcus and fahrenheit
+    if (toggle === false) {
+      return `${Math.floor(temp)}°C`;
+    }
+    return `${Math.floor((9 / 5) * temp + 32)}°F`;
   };
 
   const handleDirection = (degree) => {
-    if(degree === 0) {
-      return "N"
+    if (degree === 0) {
+      return "N";
     }
-    if(degree > 0 && degree < 90) {
-      return "NE"
+    if (degree > 0 && degree < 90) {
+      return "NE";
     }
-    if(degree === 90) {
-      return "E"
+    if (degree === 90) {
+      return "E";
     }
-    if(degree > 90 && degree < 180) {
-      return "SE"
+    if (degree > 90 && degree < 180) {
+      return "SE";
     }
-    if(degree === 180) {
-      return "S"
+    if (degree === 180) {
+      return "S";
     }
     if (degree > 180 && degree < 270) {
-      return "SW"
+      return "SW";
     }
-    if(degree === 270) {
-      return "W"
+    if (degree === 270) {
+      return "W";
     }
-    if(degree > 270 && degree < 350) {
-      return "NW"
+    if (degree > 270 && degree < 350) {
+      return "NW";
     }
-  }
+  };
 
   const handleTime = () => {
     let date = new Date();
     let hours = date.getHours();
     let minutes = date.getMinutes();
-  
+
     setHours(hours);
     setMinutes(minutes);
   };
 
   const handleTimeConvertion = (timestamp) => {
-    const date = new Date(timestamp * 1000)
+    const date = new Date(timestamp * 1000);
 
-    const hours = date.getHours()
-    const minutes = date.getMinutes()
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
 
-    return `${hours}:${minutes}`
-  }
+    return `${hours}:${minutes}`;
+  };
 
   const findMe = () => {
-    let findGeolocation = navigator.geolocation
+    let findGeolocation = navigator.geolocation;
 
     const success = (position) => {
-      let lat = position.coords.latitude
-      let long = position.coords.longitude
+      let lat = position.coords.latitude;
+      let long = position.coords.longitude;
       const request = `https://weather-proxy.freecodecamp.rocks/api/current?lat=${lat}&lon=${long}`;
 
-      fetchWeatherInfo(request)
-      setLatitude(lat)
-      setLongitude(long)
+      fetchWeatherInfo(request);
+      setLatitude(lat);
+      setLongitude(long);
       console.log(position, `Sunset is ${new Date(1674312942 * 1000)}`);
-    }
-    
-    findGeolocation.getCurrentPosition(success)
-  }
+    };
+
+    findGeolocation.getCurrentPosition(success);
+  };
 
   useEffect(() => {
     findMe();
@@ -108,7 +111,9 @@ function App() {
             }}>
             <FontAwesomeIcon icon={faArrowsRotate} />
           </button>
-          <p>{weatherInfo !== null ? `${handleFahrenheitConvert(weatherInfo.main.temp)}°F` : "Loading..."}</p>
+          <p className="clickableTemperature" onClick={() => setTemperature(!temperature)}>
+            {weatherInfo !== null ? `${handleTemperatureConvert(weatherInfo.main.temp, temperature)}` : "Loading..."}
+          </p>
           <p>{weatherInfo !== null ? weatherInfo.name : "Loading..."}</p>
           <p>{`Updated ${hours < 10 ? "0" + hours : hours}:${minutes < 10 ? "0" + minutes : minutes} `}</p>
         </div>
@@ -143,13 +148,13 @@ function App() {
             <div className="modal-body">
               <p className="underscore">{weatherInfo !== null ? `${weatherInfo.name}, ${weatherInfo.sys.country}` : "Loading..."}</p>
               <div className="underscore d-flex justify-content-evenly">
-                <div className="d-flex align-items-center ms-5">{weatherInfo !== null ? weatherInfo.main.temp : "Loading..."}</div>
+                <div className="d-flex align-items-center ms-5">{weatherInfo !== null ? handleTemperatureConvert(weatherInfo.main.temp, temperature) : "Loading..."}</div>
 
                 <img src={weatherInfo?.weather[0].icon} alt={`A icon shows ${weatherInfo?.weather[0].description}`} className="" />
 
                 <div className="me-5">
-                  <div>{weatherInfo !== null ? weatherInfo.main.temp_max : "Loading..."}</div>
-                  <div>{weatherInfo !== null ? weatherInfo.main.temp_min : "Loading..."}</div>
+                  <div>{weatherInfo !== null ? handleTemperatureConvert(weatherInfo.main.temp_max, temperature) : "Loading..."}</div>
+                  <div>{weatherInfo !== null ? handleTemperatureConvert(weatherInfo.main.temp_min, temperature) : "Loading..."}</div>
                 </div>
               </div>
 
