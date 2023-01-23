@@ -135,60 +135,40 @@ function App() {
       </div>
 
       <div ref={moreInfoCard} className="more-info-card">
-        <div style={{display: "flex", justifyContent: "end"}}>
+        <div style={{ display: "flex", justifyContent: "end" }}>
           <button type="button" onClick={handleCard}>
             <FontAwesomeIcon icon={faXmark} />
           </button>
         </div>
-      </div>
 
-      {/* <div
-        className="modal fade"
-        id="staticBackdrop"
-        data-bs-backdrop="static"
-        data-bs-keyboard="false"
-        tabIndex="-1"
-        aria-labelledby="staticBackdropLabel"
-        aria-hidden="true">
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h1 className="modal-title fs-5" id="stacicBackdropLabel">
-                Accurate weather Info
-              </h1>
-              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div className="mt-5">
+          <h1 className="text-center">Accurate Weather Info</h1>
+          <div className="underscore d-flex justify-content-center gap-5">
+            <div className="d-flex align-items-center">
+              {weatherInfo !== null ? handleTemperatureConvert(weatherInfo.main.temp, temperature) : "Loading..."}
             </div>
 
-            <div className="modal-body">
-              <p className="underscore">{weatherInfo !== null ? `${weatherInfo.name}, ${weatherInfo.sys.country}` : "Loading..."}</p>
-              <div className="underscore d-flex justify-content-evenly">
-                <div className="d-flex align-items-center ms-5">
-                  {weatherInfo !== null ? handleTemperatureConvert(weatherInfo.main.temp, temperature) : "Loading..."}
-                </div>
+            <img src={weatherInfo?.weather[0].icon} alt={`A icon shows ${weatherInfo?.weather[0].description}`} className="" />
 
-                <img src={weatherInfo?.weather[0].icon} alt={`A icon shows ${weatherInfo?.weather[0].description}`} className="" />
+            <div>
+              <div>{weatherInfo !== null ? handleTemperatureConvert(weatherInfo.main.temp_max, temperature) : "Loading..."}</div>
+              <div>{weatherInfo !== null ? handleTemperatureConvert(weatherInfo.main.temp_min, temperature) : "Loading..."}</div>
+            </div>
+          </div>
 
-                <div className="me-5">
-                  <div>{weatherInfo !== null ? handleTemperatureConvert(weatherInfo.main.temp_max, temperature) : "Loading..."}</div>
-                  <div>{weatherInfo !== null ? handleTemperatureConvert(weatherInfo.main.temp_min, temperature) : "Loading..."}</div>
-                </div>
-              </div>
+          <div className="underscore d-flex justify-content-center gap-4">
+            <div>
+              <div>{weatherInfo !== null ? `Wind: ${handleDirection(weatherInfo.wind.deg)} ${weatherInfo.wind.speed} m/s` : "Loading..."}</div>
+              <div>{weatherInfo !== null ? `Sunrise: ${handleTimeConvertion(weatherInfo.sys.sunrise)}` : "Loading..."}</div>
+            </div>
 
-              <div className="underscore d-flex justify-content-evenly">
-                <div>
-                  <div>{weatherInfo !== null ? `Wind: ${handleDirection(weatherInfo.wind.deg)} ${weatherInfo.wind.speed} m/s` : "Loading..."}</div>
-                  <div>{weatherInfo !== null ? `Sunrise: ${handleTimeConvertion(weatherInfo.sys.sunrise)}` : "Loading..."}</div>
-                </div>
-
-                <div>
-                  <div>{weatherInfo !== null ? `Humidity: ${weatherInfo.main.humidity}%` : "Loading..."}</div>
-                  <div>{weatherInfo !== null ? `Sunset: ${handleTimeConvertion(weatherInfo.sys.sunset)}` : "Loading..."}</div>
-                </div>
-              </div>
+            <div>
+              <div>{weatherInfo !== null ? `Humidity: ${weatherInfo.main.humidity}%` : "Loading..."}</div>
+              <div>{weatherInfo !== null ? `Sunset: ${handleTimeConvertion(weatherInfo.sys.sunset)}` : "Loading..."}</div>
             </div>
           </div>
         </div>
-      </div> */}
+      </div>
       <footer>FCC Free Weather App</footer>
     </div>
   );
