@@ -73,7 +73,7 @@ function App() {
     const hours = date.getHours();
     const minutes = date.getMinutes();
 
-    return `${hours}:${minutes}`;
+    return `${hours < 10 ? "0" + hours : hours}:${minutes < 10 ? "0" + minutes : minutes}`;
   };
 
   const findMe = () => {
@@ -93,9 +93,8 @@ function App() {
   };
 
   const handleCard = () => {
-    const display = moreInfoCard.current.style.display;
-    display === "" ? (moreInfoCard.current.style.display = "block") : (moreInfoCard.current.style.display = "");
-    console.log(moreInfoCard);
+    const style = moreInfoCard.current.style;
+    style.display === "" ? (moreInfoCard.current.style.display = "block") : (moreInfoCard.current.style.display = "");
   };
 
   useEffect(() => {
