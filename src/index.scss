@@ -79,6 +79,6 @@ body {
   height: 0vh;
   background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3));
   backdrop-filter: blur(2.5px);
-  transition: height 250ms ease-in;
+  transition: height 250ms cubic-bezier(0.34, 0.09, 0.36, 0.79);
   overflow: hidden;
 }
