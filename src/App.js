@@ -94,7 +94,7 @@ function App() {
 
   const handleCard = () => {
     const style = moreInfoCard.current.style;
-    style.display === "" ? (moreInfoCard.current.style.display = "block") : (moreInfoCard.current.style.display = "");
+    style.height === "0vh" ? (moreInfoCard.current.style.height = "100vh") : (moreInfoCard.current.style.height = "0vh");
   };
 
   useEffect(() => {

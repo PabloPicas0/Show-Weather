@@ -72,14 +72,13 @@ body {
 }
 
 .more-info-card {
-  display: none;
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
-  background: white;
+  height: 0vh;
   background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3));
   backdrop-filter: blur(2.5px);
-  transition: height 500ms ease-in;
+  transition: height 250ms ease-in;
+  overflow: hidden;
 }
