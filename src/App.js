@@ -106,7 +106,6 @@ function App() {
     <div className="App">
       <div className="widget-container">
         <img src={weatherInfo?.weather[0].icon} alt="Weather Icon" className="weather-icon" />
-        <div className="basic-info">
           <button
             type="button"
             className="refresh"
@@ -116,17 +115,18 @@ function App() {
             }}>
             <FontAwesomeIcon icon={faArrowsRotate} />
           </button>
+        <div className="basic-info">
           <p className="clickableTemperature" onClick={() => setTemperature(!temperature)}>
             {weatherInfo !== null ? handleTemperatureConvert(weatherInfo.main.temp, temperature) : "Loading..."}
           </p>
-          <p>{weatherInfo !== null ? weatherInfo.name : "Loading..."}</p>
+          <p className="fs-5">{weatherInfo !== null ? weatherInfo.name : "Loading..."}</p>
           <p>{`Updated ${hours < 10 ? "0" + hours : hours}:${minutes < 10 ? "0" + minutes : minutes} `}</p>
         </div>
 
         <div className="more-info">
           <div>
             <button type="button" onClick={handleCard}>
-              <FontAwesomeIcon icon={faCaretDown} />
+              <FontAwesomeIcon icon={faCaretDown} className="me-1" />
               More Info...
             </button>
           </div>
@@ -141,7 +141,7 @@ function App() {
         </div>
 
         <div className="mt-5">
-          <h1 className="text-center">Accurate Weather Info</h1>
+          <h1 className="text-center mb-4">Accurate Weather Info</h1>
           <div className="underscore d-flex justify-content-center gap-5">
             <div className="d-flex align-items-center">
               {weatherInfo !== null ? handleTemperatureConvert(weatherInfo.main.temp, temperature) : "Loading..."}
