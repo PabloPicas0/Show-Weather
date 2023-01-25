@@ -106,15 +106,15 @@ function App() {
     <div className="App">
       <div className="widget-container">
         <img src={weatherInfo?.weather[0].icon} alt="Weather Icon" className="weather-icon" />
-          <button
-            type="button"
-            className="refresh"
-            onClick={() => {
-              fetchWeatherInfo(`https://weather-proxy.freecodecamp.rocks/api/current?lat=${latitude}&lon=${longitude}`);
-              handleTime();
-            }}>
-            <FontAwesomeIcon icon={faArrowsRotate} />
-          </button>
+        <button
+          type="button"
+          className="refresh"
+          onClick={() => {
+            fetchWeatherInfo(`https://weather-proxy.freecodecamp.rocks/api/current?lat=${latitude}&lon=${longitude}`);
+            handleTime();
+          }}>
+          <FontAwesomeIcon icon={faArrowsRotate} />
+        </button>
         <div className="basic-info">
           <p className="clickableTemperature" onClick={() => setTemperature(!temperature)}>
             {weatherInfo !== null ? handleTemperatureConvert(weatherInfo.main.temp, temperature) : "Loading..."}
@@ -143,25 +143,25 @@ function App() {
         <div className="mt-5">
           <h1 className="text-center mb-4">Accurate Weather Info</h1>
           <div className="underscore d-flex justify-content-center gap-5">
-            <div className="d-flex align-items-center">
+            <div className="d-flex align-items-center fs-3">
               {weatherInfo !== null ? handleTemperatureConvert(weatherInfo.main.temp, temperature) : "Loading..."}
             </div>
 
             <img src={weatherInfo?.weather[0].icon} alt={`A icon shows ${weatherInfo?.weather[0].description}`} className="" />
 
-            <div>
+            <div className="fs-5">
               <div>{weatherInfo !== null ? handleTemperatureConvert(weatherInfo.main.temp_max, temperature) : "Loading..."}</div>
               <div>{weatherInfo !== null ? handleTemperatureConvert(weatherInfo.main.temp_min, temperature) : "Loading..."}</div>
             </div>
           </div>
 
           <div className="underscore d-flex justify-content-center gap-4">
-            <div>
+            <div className="fs-7">
               <div>{weatherInfo !== null ? `Wind: ${handleDirection(weatherInfo.wind.deg)} ${weatherInfo.wind.speed} m/s` : "Loading..."}</div>
               <div>{weatherInfo !== null ? `Sunrise: ${handleTimeConvertion(weatherInfo.sys.sunrise)}` : "Loading..."}</div>
             </div>
 
-            <div>
+            <div className="fs-7">
               <div>{weatherInfo !== null ? `Humidity: ${weatherInfo.main.humidity}%` : "Loading..."}</div>
               <div>{weatherInfo !== null ? `Sunset: ${handleTimeConvertion(weatherInfo.sys.sunset)}` : "Loading..."}</div>
             </div>

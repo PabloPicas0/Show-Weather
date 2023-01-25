@@ -90,7 +90,24 @@ body {
   width: 100vw;
   height: 0vh;
   background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3));
-  backdrop-filter: blur(2.5px);
+  backdrop-filter: blur(5px);
   transition: height 250ms cubic-bezier(0.34, 0.09, 0.36, 0.79);
   overflow: hidden;
+
+  div {
+    button {
+      width: 30px;
+      height: 30px;
+      background: transparent;
+      border: transparent;
+      color: #ff0000;
+      svg {
+        height: auto;
+      }
+    }
+  }
+}
+
+.fs-7 {
+  font-size: 1.1rem;
 }
