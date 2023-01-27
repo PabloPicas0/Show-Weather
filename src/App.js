@@ -166,9 +166,21 @@ function App() {
               <div>{weatherInfo !== null ? `Sunset: ${handleTimeConvertion(weatherInfo.sys.sunset)}` : "Loading..."}</div>
             </div>
           </div>
+
+          <div className="underscore d-flex justify-content-center gap-4">
+            <div className="fs-7">
+              <div>{weatherInfo !== null ? `Grnd Level: ${weatherInfo.main.grnd_level} hPa` : "Loading..."}</div>
+              <div>{weatherInfo !== null ? `Pressure: ${weatherInfo.main.pressure} hPa` : "Loading..."}</div>
+            </div>
+
+            <div className="fs-7">
+              <div>{weatherInfo !== null ? `Sea Level: ${weatherInfo.main.sea_level} hPa` : "Loading..."}</div>
+              <div>{weatherInfo !== null ? `Wind Gust: ${weatherInfo.wind.gust} m/s` : "Loading..."}</div>
+            </div>
+          </div>
         </div>
       </div>
-      <footer>FCC Free Weather App</footer>
+      <footer>Created by Pablo</footer>
     </div>
   );
 }
