@@ -93,8 +93,11 @@ function App() {
   };
 
   const handleCard = () => {
-    const style = moreInfoCard.current.style;
-    style.height === "" ? (moreInfoCard.current.style.height = "100vh") : (moreInfoCard.current.style.height = "");
+    const moreInfo = moreInfoCard.current;
+    const hideTabIndex = moreInfoCard.current.childNodes[0].firstChild;
+
+    moreInfo.style.height === "" ? (moreInfoCard.current.style.height = "100vh") : (moreInfoCard.current.style.height = "");
+    hideTabIndex.tabIndex === -1 ? hideTabIndex.tabIndex = 1 : hideTabIndex.tabIndex = -1
   };
 
   useEffect(() => {
@@ -135,7 +138,7 @@ function App() {
 
       <div ref={moreInfoCard} className="more-info-card">
         <div style={{ display: "flex", justifyContent: "end" }}>
-          <button type="button" onClick={handleCard}>
+          <button tabIndex={-1} type="button" onClick={handleCard}>
             <FontAwesomeIcon icon={faXmark} />
           </button>
         </div>
