@@ -120,7 +120,7 @@ function App() {
         </button>
         <div className="basic-info">
           <p className="clickableTemperature" onClick={() => setTemperature(!temperature)}>
-            {weatherInfo !== null ? handleTemperatureConvert(weatherInfo.main.temp, temperature) : "Loading..."}
+            {weatherInfo !== null ? handleTemperatureConvert(weatherInfo.main.temp, temperature) : "..."}
           </p>
           <p className="fs-5">{weatherInfo !== null ? weatherInfo.name : "Loading..."}</p>
           <p>{`Updated ${hours < 10 ? "0" + hours : hours}:${minutes < 10 ? "0" + minutes : minutes} `}</p>
@@ -160,24 +160,26 @@ function App() {
 
           <div className="underscore d-flex justify-content-center gap-4">
             <div className="fs-7">
-              <div>{weatherInfo !== null ? `Wind: ${handleDirection(weatherInfo.wind.deg)} ${weatherInfo.wind.speed} m/s` : "Loading..."}</div>
+              <div className="mb-3">
+                {weatherInfo !== null ? `Wind: ${handleDirection(weatherInfo.wind.deg)} ${weatherInfo.wind.speed} m/s` : "Loading..."}
+              </div>
               <div>{weatherInfo !== null ? `Sunrise: ${handleTimeConvertion(weatherInfo.sys.sunrise)}` : "Loading..."}</div>
             </div>
 
             <div className="fs-7">
-              <div>{weatherInfo !== null ? `Humidity: ${weatherInfo.main.humidity}%` : "Loading..."}</div>
+              <div className="mb-3">{weatherInfo !== null ? `Humidity: ${weatherInfo.main.humidity}%` : "Loading..."}</div>
               <div>{weatherInfo !== null ? `Sunset: ${handleTimeConvertion(weatherInfo.sys.sunset)}` : "Loading..."}</div>
             </div>
           </div>
 
           <div className="underscore d-flex justify-content-center gap-4">
             <div className="fs-7">
-              <div>{weatherInfo !== null ? `Grnd Level: ${weatherInfo.main.grnd_level} hPa` : "Loading..."}</div>
+              <div className="mb-3">{weatherInfo !== null ? `Grnd Level: ${weatherInfo.main.grnd_level} hPa` : "Loading..."}</div>
               <div>{weatherInfo !== null ? `Pressure: ${weatherInfo.main.pressure} hPa` : "Loading..."}</div>
             </div>
 
             <div className="fs-7">
-              <div>{weatherInfo !== null ? `Sea Level: ${weatherInfo.main.sea_level} hPa` : "Loading..."}</div>
+              <div className="mb-3">{weatherInfo !== null ? `Sea Level: ${weatherInfo.main.sea_level} hPa` : "Loading..."}</div>
               <div>{weatherInfo !== null ? `Wind Gust: ${weatherInfo.wind.gust} m/s` : "Loading..."}</div>
             </div>
           </div>
