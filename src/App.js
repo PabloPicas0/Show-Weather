@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowsRotate, faCaretDown, faXmark } from "@fortawesome/free-solid-svg-icons";
+import MoreInfoModal from "./Components/moreInfo";
+import Widget from "./Components/widget";
 
 import "./index.scss";
 
@@ -68,6 +68,8 @@ function App() {
   };
 
   const handleTimeConvertion = (timestamp) => {
+    //TODO: Proper convertion when geolocation is off
+    //console.log(new Date(new Date().toLocaleString("en-GB", { timeZone: "Asia/Tokyo" }))); this is fix
     const date = new Date(timestamp * 1000);
 
     const hours = date.getHours();
@@ -89,7 +91,14 @@ function App() {
       setLongitude(long);
     };
 
-    findGeolocation.getCurrentPosition(success);
+    const eror = (eror) => {
+      const request = `https://weather-proxy.freecodecamp.rocks/api/current?lat=${latitude}&lon=${longitude}`;
+      fetchWeatherInfo(request)
+
+      console.log(eror.message)
+    }
+
+    findGeolocation.getCurrentPosition(success, eror);
   };
 
   const handleCard = () => {
@@ -97,7 +106,7 @@ function App() {
     const hideTabIndex = moreInfoCard.current.childNodes[0].firstChild;
 
     moreInfo.style.height === "" ? (moreInfoCard.current.style.height = "100vh") : (moreInfoCard.current.style.height = "");
-    hideTabIndex.tabIndex === -1 ? hideTabIndex.tabIndex = 1 : hideTabIndex.tabIndex = -1
+    hideTabIndex.tabIndex === -1 ? (hideTabIndex.tabIndex = 1) : (hideTabIndex.tabIndex = -1);
   };
 
   useEffect(() => {
@@ -107,84 +116,26 @@ function App() {
 
   return (
     <div className="App">
-      <div className="widget-container">
-        <img src={weatherInfo?.weather[0].icon} alt="Weather Icon" className="weather-icon" />
-        <button
-          type="button"
-          className="refresh"
-          onClick={() => {
-            fetchWeatherInfo(`https://weather-proxy.freecodecamp.rocks/api/current?lat=${latitude}&lon=${longitude}`);
-            handleTime();
-          }}>
-          <FontAwesomeIcon icon={faArrowsRotate} />
-        </button>
-        <div className="basic-info">
-          <p className="clickableTemperature" onClick={() => setTemperature(!temperature)}>
-            {weatherInfo !== null ? handleTemperatureConvert(weatherInfo.main.temp, temperature) : "..."}
-          </p>
-          <p className="fs-5">{weatherInfo !== null ? weatherInfo.name : "Loading..."}</p>
-          <p>{`Updated ${hours < 10 ? "0" + hours : hours}:${minutes < 10 ? "0" + minutes : minutes} `}</p>
-        </div>
-
-        <div className="more-info">
-          <div>
-            <button type="button" onClick={handleCard}>
-              <FontAwesomeIcon icon={faCaretDown} className="me-1" />
-              More Info...
-            </button>
-          </div>
-        </div>
-      </div>
-
-      <div ref={moreInfoCard} className="more-info-card">
-        <div style={{ display: "flex", justifyContent: "end" }}>
-          <button tabIndex={-1} type="button" onClick={handleCard}>
-            <FontAwesomeIcon icon={faXmark} />
-          </button>
-        </div>
-
-        <div className="mt-5">
-          <h1 className="text-center mb-4">Accurate Weather Info</h1>
-          <div className="underscore d-flex justify-content-center gap-5">
-            <div className="d-flex align-items-center fs-3">
-              {weatherInfo !== null ? handleTemperatureConvert(weatherInfo.main.temp, temperature) : "Loading..."}
-            </div>
-
-            <img src={weatherInfo?.weather[0].icon} alt={`A icon shows ${weatherInfo?.weather[0].description}`} className="" />
-
-            <div className="fs-5">
-              <div>{weatherInfo !== null ? handleTemperatureConvert(weatherInfo.main.temp_max, temperature) : "Loading..."}</div>
-              <div>{weatherInfo !== null ? handleTemperatureConvert(weatherInfo.main.temp_min, temperature) : "Loading..."}</div>
-            </div>
-          </div>
-
-          <div className="underscore d-flex justify-content-center gap-4">
-            <div className="fs-7">
-              <div className="mb-3">
-                {weatherInfo !== null ? `Wind: ${handleDirection(weatherInfo.wind.deg)} ${weatherInfo.wind.speed} m/s` : "Loading..."}
-              </div>
-              <div>{weatherInfo !== null ? `Sunrise: ${handleTimeConvertion(weatherInfo.sys.sunrise)}` : "Loading..."}</div>
-            </div>
-
-            <div className="fs-7">
-              <div className="mb-3">{weatherInfo !== null ? `Humidity: ${weatherInfo.main.humidity}%` : "Loading..."}</div>
-              <div>{weatherInfo !== null ? `Sunset: ${handleTimeConvertion(weatherInfo.sys.sunset)}` : "Loading..."}</div>
-            </div>
-          </div>
-
-          <div className="underscore d-flex justify-content-center gap-4">
-            <div className="fs-7">
-              <div className="mb-3">{weatherInfo !== null ? `Grnd Level: ${weatherInfo.main.grnd_level} hPa` : "Loading..."}</div>
-              <div>{weatherInfo !== null ? `Pressure: ${weatherInfo.main.pressure} hPa` : "Loading..."}</div>
-            </div>
-
-            <div className="fs-7">
-              <div className="mb-3">{weatherInfo !== null ? `Sea Level: ${weatherInfo.main.sea_level} hPa` : "Loading..."}</div>
-              <div>{weatherInfo !== null ? `Wind Gust: ${weatherInfo.wind.gust} m/s` : "Loading..."}</div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Widget
+        weatherInfo={weatherInfo}
+        findMe={findMe}
+        handleTime={handleTime}
+        setTemperature={setTemperature}
+        temperature={temperature}
+        hours={hours}
+        minutes={minutes}
+        handleCard={handleCard}
+        handleTemperatureConvert={handleTemperatureConvert}
+      />
+      <MoreInfoModal
+        moreInfoCard={moreInfoCard}
+        handleCard={handleCard}
+        weatherInfo={weatherInfo}
+        handleTemperatureConvert={handleTemperatureConvert}
+        temperature={temperature}
+        handleDirection={handleDirection}
+        handleTimeConvertion={handleTimeConvertion}
+      />
       <footer>Created by Pablo</footer>
     </div>
   );
