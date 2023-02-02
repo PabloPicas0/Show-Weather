@@ -64,13 +64,14 @@ function App() {
 
     setHours(hours);
     setMinutes(minutes);
-    console.log(weatherInfo);
   };
 
   const handleTimeConvertion = (timestamp) => {
-    //TODO: Proper convertion when geolocation is off
-    //console.log(new Date(new Date().toLocaleString("en-GB", { timeZone: "Asia/Tokyo" }))); this is fix
-    const date = new Date(timestamp * 1000);
+    let date = new Date(timestamp * 1000);
+
+    if (weatherInfo.id === 1851632) {
+      date = new Date(new Date(timestamp * 1000).toLocaleString("en-GB", { timeZone: "Asia/Tokyo" })); //this change sunset/sunrise to this in Tokyo if user denied geolocation
+    }
 
     const hours = date.getHours();
     const minutes = date.getMinutes();
@@ -93,10 +94,10 @@ function App() {
 
     const eror = (eror) => {
       const request = `https://weather-proxy.freecodecamp.rocks/api/current?lat=${latitude}&lon=${longitude}`;
-      fetchWeatherInfo(request)
+      fetchWeatherInfo(request);
 
-      console.log(eror.message)
-    }
+      console.log(eror.message);
+    };
 
     findGeolocation.getCurrentPosition(success, eror);
   };

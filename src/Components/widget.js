@@ -3,25 +3,16 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faArrowsRotate } from "@fortawesome/free-solid-svg-icons";
 
-const Widget = ({ 
-    weatherInfo,
-    findMe,
-    handleTime, 
-    setTemperature, 
-    temperature, 
-    hours, 
-    minutes,
-    handleCard,
-    handleTemperatureConvert
-}) => {
+const Widget = ({ weatherInfo, findMe, handleTime, setTemperature, temperature, hours, minutes, handleCard, handleTemperatureConvert }) => {
   return (
     <div className="widget-container">
       <img src={weatherInfo?.weather[0].icon} alt="Weather Icon" className="weather-icon" />
       <button
+        aria-label="Refresh Weather"
         type="button"
         className="refresh"
         onClick={() => {
-          findMe()
+          findMe();
           handleTime();
         }}>
         <FontAwesomeIcon icon={faArrowsRotate} />
