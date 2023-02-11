@@ -12,6 +12,7 @@ function App() {
   const [longitude, setLongitude] = useState(139);
   const [hours, setHours] = useState(null);
   const [minutes, setMinutes] = useState(null);
+  const [background, setBackground] = useState("");
 
   const moreInfoCard = useRef();
 
@@ -20,6 +21,7 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         setWeatherInfo(data);
+        handleBackground(data.weather[0].main)
       });
   };
 
@@ -110,13 +112,41 @@ function App() {
     hideTabIndex.tabIndex === -1 ? (hideTabIndex.tabIndex = 1) : (hideTabIndex.tabIndex = -1);
   };
 
+  const handleBackground = (weather) => {
+    switch (weather) {
+      case "Clear":
+        setBackground(`url(${process.env.PUBLIC_URL + "/images/sunny_day.gif"})`);
+        break;
+      case "Clouds":
+        setBackground(`url(${process.env.PUBLIC_URL + "/images/cloudy_day.gif"})`);
+        break;
+      case "Mist":
+        setBackground(`url(${process.env.PUBLIC_URL + "/images/cloudy_day.gif"})`);
+        break;
+      case "Snow":
+        setBackground(`url(${process.env.PUBLIC_URL + "/images/winter_day.gif"})`);
+        break;
+      case "Rain":
+        setBackground(`url(${process.env.PUBLIC_URL + "/images/rainy_day.gif"})`);
+        break;
+      case "Drizzle":
+        setBackground(`url(${process.env.PUBLIC_URL + "/images/rainy_day.gif"})`);
+        break;
+      case "Thunderstorm":
+        setBackground(`url(${process.env.PUBLIC_URL + "/images/rainy_day.gif"})`);
+        break;
+      default:
+        setBackground("linear-gradient(240deg, rgba(150, 50, 50, 0.3), rgba(0, 0, 200, 0))");
+    }
+  };
+
   useEffect(() => {
     findMe();
     handleTime();
   }, []);
 
   return (
-    <div className="App">
+    <div className="App" style={{backgroundImage: background}}>
       <Widget
         weatherInfo={weatherInfo}
         findMe={findMe}

@@ -10,7 +10,9 @@ body {
   height: 100vh;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(240deg, rgba(150, 50, 50, 0.3), rgba(0, 0, 200, 0));
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
 }
 
 .widget-container {
@@ -114,4 +116,8 @@ body {
 
 .fs-7 {
   font-size: 1.1rem;
+}
+
+footer {
+  color: rgb(245, 245, 245);
 }
