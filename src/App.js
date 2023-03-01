@@ -21,7 +21,7 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         setWeatherInfo(data);
-        handleBackground(data.weather[0].main)
+        handleBackground(data.weather[0].main);
       });
   };
 
@@ -33,30 +33,9 @@ function App() {
   };
 
   const handleDirection = (degree) => {
-    if (degree === 0) {
-      return "N";
-    }
-    if (degree > 0 && degree < 90) {
-      return "NE";
-    }
-    if (degree === 90) {
-      return "E";
-    }
-    if (degree > 90 && degree < 180) {
-      return "SE";
-    }
-    if (degree === 180) {
-      return "S";
-    }
-    if (degree > 180 && degree < 270) {
-      return "SW";
-    }
-    if (degree === 270) {
-      return "W";
-    }
-    if (degree > 270 && degree < 350) {
-      return "NW";
-    }
+    const idx = Math.floor((degree / 45) + 0.5) 
+    const direcionts = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
+    return direcionts[(idx % 8)]
   };
 
   const handleTime = () => {
@@ -108,7 +87,9 @@ function App() {
     const moreInfo = moreInfoCard.current;
     const hideTabIndex = moreInfoCard.current.childNodes[0].firstChild;
 
-    moreInfo.style.height === "" ? (moreInfoCard.current.style.height = "100vh") : (moreInfoCard.current.style.height = "");
+    moreInfo.style.height === ""
+      ? (moreInfoCard.current.style.height = "100vh")
+      : (moreInfoCard.current.style.height = "");
     hideTabIndex.tabIndex === -1 ? (hideTabIndex.tabIndex = 1) : (hideTabIndex.tabIndex = -1);
   };
 
@@ -146,7 +127,7 @@ function App() {
   }, []);
 
   return (
-    <div className="App" style={{backgroundImage: background}}>
+    <div className="App" style={{ backgroundImage: background }}>
       <Widget
         weatherInfo={weatherInfo}
         findMe={findMe}
