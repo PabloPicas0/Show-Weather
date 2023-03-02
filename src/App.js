@@ -94,31 +94,22 @@ function App() {
   };
 
   const handleBackground = (weather) => {
-    switch (weather) {
-      case "Clear":
-        setBackground(`url(${process.env.PUBLIC_URL + "/images/sunny_day.gif"})`);
-        break;
-      case "Clouds":
-        setBackground(`url(${process.env.PUBLIC_URL + "/images/cloudy_day.gif"})`);
-        break;
-      case "Mist":
-        setBackground(`url(${process.env.PUBLIC_URL + "/images/cloudy_day.gif"})`);
-        break;
-      case "Snow":
-        setBackground(`url(${process.env.PUBLIC_URL + "/images/winter_day.gif"})`);
-        break;
-      case "Rain":
-        setBackground(`url(${process.env.PUBLIC_URL + "/images/rainy_day.gif"})`);
-        break;
-      case "Drizzle":
-        setBackground(`url(${process.env.PUBLIC_URL + "/images/rainy_day.gif"})`);
-        break;
-      case "Thunderstorm":
-        setBackground(`url(${process.env.PUBLIC_URL + "/images/rainy_day.gif"})`);
-        break;
-      default:
-        setBackground("linear-gradient(240deg, rgba(150, 50, 50, 0.3), rgba(0, 0, 200, 0))");
+    const weatherState = {
+      "Clear": `url(${process.env.PUBLIC_URL + "/images/sunny_day.gif"})`,
+      "Clouds": `url(${process.env.PUBLIC_URL + "/images/cloudy_day.gif"})`,
+      "Mist": `url(${process.env.PUBLIC_URL + "/images/cloudy_day.gif"})`,
+      "Snow": `url(${process.env.PUBLIC_URL + "/images/winter_day.gif"})`,
+      "Rain": `url(${process.env.PUBLIC_URL + "/images/rainy_day.gif"})`,
+      "Drizzle": `url(${process.env.PUBLIC_URL + "/images/rainy_day.gif"})`,
+      "Thunderstorm": `url(${process.env.PUBLIC_URL + "/images/rainy_day.gif"})`,
+      "default": "linear-gradient(240deg, rgba(150, 50, 50, 0.3), rgba(0, 0, 200, 0))"
+    };
+
+    if(!weatherState.hasOwnProperty(weather)) {
+      setBackground(weatherState["default"]);
     }
+
+    setBackground(weatherState[weather])
   };
 
   useEffect(() => {
