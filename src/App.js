@@ -15,13 +15,13 @@ function App() {
 
   const moreInfoCard = useRef();
 
-  const fetchWeatherInfo = (api) => {
-    fetch(api)
-      .then((response) => response.json())
-      .then((data) => {
-        setWeatherInfo(data);
-        console.log(data)
-      });
+  const fetchWeatherInfo = async (lat, long) => {
+    const request = `https://weather-proxy.freecodecamp.rocks/api/current?lat=${lat}&lon=${long}`;
+
+    const weatherRequest = await fetch(request);
+    const weatherResponse = await weatherRequest.json();
+
+    return weatherResponse;
   };
 
   const handleTemperatureConvert = (temp, toggle) => {
@@ -65,16 +65,14 @@ function App() {
     const success = (position) => {
       let lat = position.coords.latitude;
       let long = position.coords.longitude;
-      const request = `https://weather-proxy.freecodecamp.rocks/api/current?lat=${lat}&lon=${long}`;
 
-      fetchWeatherInfo(request);
+      fetchWeatherInfo(lat, long).then((weather) => setWeatherInfo(weather));
       setLatitude(lat);
       setLongitude(long);
     };
 
     const eror = (eror) => {
-      const request = `https://weather-proxy.freecodecamp.rocks/api/current?lat=${latitude}&lon=${longitude}`;
-      fetchWeatherInfo(request);
+      fetchWeatherInfo(latitude, longitude).then((weather) => setWeatherInfo(weather));
 
       console.log(eror.message);
     };
@@ -93,7 +91,9 @@ function App() {
   };
 
   useEffect(() => {
-    findMe();
+    fetchWeatherInfo(latitude, longitude).then((weather) => {
+      setWeatherInfo(weather);
+    });
     handleTime();
   }, []);
 
