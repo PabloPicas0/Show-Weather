@@ -21,7 +21,7 @@ const Widget = ({
 
         <div>
           <p className="mb-0">Pace</p>
-          <p className="mb-0">time</p>
+          <p className="mb-0">{hours}</p>
         </div>
       </div>
 

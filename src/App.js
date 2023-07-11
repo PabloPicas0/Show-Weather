@@ -10,8 +10,7 @@ function App() {
   const [temperature, setTemperature] = useState(false);
   const [latitude, setLatitude] = useState(35);
   const [longitude, setLongitude] = useState(139);
-  const [hours, setHours] = useState(null);
-  const [minutes, setMinutes] = useState(null);
+  const [hour, setHour] = useState("");
 
   const moreInfoCard = useRef();
 
@@ -38,12 +37,9 @@ function App() {
   };
 
   const handleTime = () => {
-    let date = new Date();
-    let hours = date.getHours();
-    let minutes = date.getMinutes();
+    const date = new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "numeric", hour12: true });
 
-    setHours(hours);
-    setMinutes(minutes);
+    setHour(date);
   };
 
   const handleTimeConvertion = (timestamp) => {
@@ -105,8 +101,7 @@ function App() {
         handleTime={handleTime}
         setTemperature={setTemperature}
         temperature={temperature}
-        hours={hours}
-        minutes={minutes}
+        hours={hour}
         handleCard={handleCard}
         handleTemperatureConvert={handleTemperatureConvert}
       />
