@@ -12,7 +12,6 @@ function App() {
   const [longitude, setLongitude] = useState(139);
   const [hours, setHours] = useState(null);
   const [minutes, setMinutes] = useState(null);
-  const [background, setBackground] = useState("");
 
   const moreInfoCard = useRef();
 
@@ -21,7 +20,7 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         setWeatherInfo(data);
-        handleBackground(data.weather[0].main);
+        console.log(data)
       });
   };
 
@@ -33,9 +32,9 @@ function App() {
   };
 
   const handleDirection = (degree) => {
-    const idx = Math.floor((degree / 45) + 0.5) 
+    const idx = Math.floor(degree / 45 + 0.5);
     const direcionts = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
-    return direcionts[(idx % 8)]
+    return direcionts[idx % 8];
   };
 
   const handleTime = () => {
@@ -93,32 +92,13 @@ function App() {
     hideTabIndex.tabIndex === -1 ? (hideTabIndex.tabIndex = 1) : (hideTabIndex.tabIndex = -1);
   };
 
-  const handleBackground = (weather) => {
-    const weatherState = {
-      "Clear": `url(${process.env.PUBLIC_URL + "/images/sunny_day.gif"})`,
-      "Clouds": `url(${process.env.PUBLIC_URL + "/images/cloudy_day.gif"})`,
-      "Mist": `url(${process.env.PUBLIC_URL + "/images/cloudy_day.gif"})`,
-      "Snow": `url(${process.env.PUBLIC_URL + "/images/winter_day.gif"})`,
-      "Rain": `url(${process.env.PUBLIC_URL + "/images/rainy_day.gif"})`,
-      "Drizzle": `url(${process.env.PUBLIC_URL + "/images/rainy_day.gif"})`,
-      "Thunderstorm": `url(${process.env.PUBLIC_URL + "/images/rainy_day.gif"})`,
-      "default": "linear-gradient(240deg, rgba(150, 50, 50, 0.3), rgba(0, 0, 200, 0))"
-    };
-
-    if(!weatherState.hasOwnProperty(weather)) {
-      setBackground(weatherState["default"]);
-    }
-
-    setBackground(weatherState[weather])
-  };
-
   useEffect(() => {
     findMe();
     handleTime();
   }, []);
 
   return (
-    <div className="App" style={{ backgroundImage: background }}>
+    <div className="App">
       <Widget
         weatherInfo={weatherInfo}
         findMe={findMe}
@@ -130,7 +110,7 @@ function App() {
         handleCard={handleCard}
         handleTemperatureConvert={handleTemperatureConvert}
       />
-      <MoreInfoModal
+      {/* <MoreInfoModal
         moreInfoCard={moreInfoCard}
         handleCard={handleCard}
         weatherInfo={weatherInfo}
@@ -138,7 +118,7 @@ function App() {
         temperature={temperature}
         handleDirection={handleDirection}
         handleTimeConvertion={handleTimeConvertion}
-      />
+      /> */}
       <footer>Created by Pablo</footer>
     </div>
   );
