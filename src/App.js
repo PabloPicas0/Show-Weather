@@ -7,7 +7,7 @@ import "./index.scss";
 
 function App() {
   const [weatherInfo, setWeatherInfo] = useState(null);
-  const [isCelcius, setIsCelcius] = useState(false);
+  const [isCelcius, setIsCelcius] = useState(true);
   const [latitude, setLatitude] = useState(35);
   const [longitude, setLongitude] = useState(139);
 

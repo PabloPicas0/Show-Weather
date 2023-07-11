@@ -35,7 +35,7 @@ const Widget = (props) => {
             <div>
               <p className="mb-0">
                 {weatherInfo.name}
-                <FontAwesomeIcon icon={faLocationDot} className="ms-2" />
+                <FontAwesomeIcon icon={faLocationDot} className="ms-2" onClick={() => findMe()} cursor={"pointer"}/>
               </p>
               <p className="mb-0">{time}</p>
             </div>
