@@ -26,15 +26,24 @@ const Widget = (props) => {
   const { weatherInfo, findMe, setIsCelcius, isCelcius, handleCard, handleTemperatureConvert } = props;
 
   const handleTime = () => {
-    return new Date().toLocaleTimeString("en-US", {
+    if (!weatherInfo) return;
+
+    return new Date((weatherInfo.dt + weatherInfo.timezone) * 1000).toLocaleTimeString("en-US", {
       hour: "numeric",
       minute: "numeric",
       hour12: true,
+      timeZone: "UTC"
     });
   };
 
   const handleDay = () => {
-    return new Date().toLocaleDateString("en-GB", { weekday: "long", day: "numeric" });
+     if (!weatherInfo) return;
+     
+    return new Date((weatherInfo.dt + weatherInfo.timezone) * 1000).toLocaleDateString("en-GB", {
+      weekday: "long",
+      day: "numeric",
+      timeZone: "UTC",
+    });
   };
 
   const handleWeatherConditionIcon = () => {
@@ -64,7 +73,10 @@ const Widget = (props) => {
 
   const time = handleTime();
   const day = handleDay();
-  const weatherCondition = handleWeatherConditionIcon()
+  const weatherCondition = handleWeatherConditionIcon();
+
+  console.log(time)
+  console.log(day)
 
   return (
     <>

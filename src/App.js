@@ -28,19 +28,6 @@ function App() {
     return direcionts[idx % 8];
   };
 
-  const handleTimeConvertion = (timestamp) => {
-    let date = new Date(timestamp * 1000);
-
-    if (weatherInfo.id === 1851632) {
-      date = new Date(new Date(timestamp * 1000).toLocaleString("en-GB", { timeZone: "Asia/Tokyo" })); //this change sunset/sunrise to this in Tokyo if user denied geolocation
-    }
-
-    const hours = date.getHours();
-    const minutes = date.getMinutes();
-
-    return `${hours < 10 ? "0" + hours : hours}:${minutes < 10 ? "0" + minutes : minutes}`;
-  };
-
   const findMe = () => {
     let findGeolocation = navigator.geolocation;
 
