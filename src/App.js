@@ -97,7 +97,7 @@ function App() {
         handleDirection={handleDirection}
         handleTimeConvertion={handleTimeConvertion}
       /> */}
-      <footer>Created by Pablo</footer>
+      <footer className="fw-bold">Created by Pablo</footer>
     </div>
   );
 }

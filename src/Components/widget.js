@@ -75,10 +75,10 @@ const Widget = (props) => {
       ) : (
         <div className="widget-container">
           <div className="d-flex justify-content-between">
-            <h2 className="text-capitalize">{weatherInfo.weather[0].description}</h2>
+            <h2 className="text-capitalize fw-bold">{weatherInfo.weather[0].description}</h2>
 
             <div>
-              <p className="mb-0">
+              <p className="mb-0 fw-semibold">
                 {weatherInfo.name}
                 <FontAwesomeIcon
                   icon={faLocationDot}
@@ -87,7 +87,7 @@ const Widget = (props) => {
                   cursor={"pointer"}
                 />
               </p>
-              <p className="mb-0">{time}</p>
+              <p className="mb-0 fw-semibold">{time}</p>
             </div>
           </div>
 
@@ -114,7 +114,7 @@ const Widget = (props) => {
                 <span className="fs-5">°</span>
               </div>
 
-              <div>{day}</div>
+              <div className="fw-bold">{day}</div>
             </div>
 
             <div className="d-flex flex-column">
@@ -122,7 +122,7 @@ const Widget = (props) => {
                 <img src={weatherInfo.weather[0].icon} alt="Weather Icon" className="weather-icon" />
               </div>
 
-              <div>
+              <div className="fw-bold">
                 {Math.floor(weatherInfo.wind.speed)}mph/{weatherInfo.wind.deg}
                 <span className="fs-5">°</span>
               </div>
