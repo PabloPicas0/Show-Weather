@@ -11,15 +11,15 @@ const Widget = (props) => {
       hour: "numeric",
       minute: "numeric",
       hour12: true,
-    });;
+    });
   };
 
   const handleDay = () => {
     return new Date().toLocaleDateString("en-GB", { weekday: "long", day: "numeric" });
-  }
+  };
 
-  const time = handleTime()
-  const day = handleDay()
+  const time = handleTime();
+  const day = handleDay();
 
   return (
     <>
@@ -35,7 +35,12 @@ const Widget = (props) => {
             <div>
               <p className="mb-0">
                 {weatherInfo.name}
-                <FontAwesomeIcon icon={faLocationDot} className="ms-2" onClick={() => findMe()} cursor={"pointer"}/>
+                <FontAwesomeIcon
+                  icon={faLocationDot}
+                  className="ms-2 location-dot-animation"
+                  onClick={() => findMe()}
+                  cursor={"pointer"}
+                />
               </p>
               <p className="mb-0">{time}</p>
             </div>
