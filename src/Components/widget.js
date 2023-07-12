@@ -32,13 +32,13 @@ const Widget = (props) => {
       hour: "numeric",
       minute: "numeric",
       hour12: true,
-      timeZone: "UTC"
+      timeZone: "UTC",
     });
   };
 
   const handleDay = () => {
-     if (!weatherInfo) return;
-     
+    if (!weatherInfo) return;
+
     return new Date((weatherInfo.dt + weatherInfo.timezone) * 1000).toLocaleDateString("en-GB", {
       weekday: "long",
       day: "numeric",
@@ -74,9 +74,6 @@ const Widget = (props) => {
   const time = handleTime();
   const day = handleDay();
   const weatherCondition = handleWeatherConditionIcon();
-
-  console.log(time)
-  console.log(day)
 
   return (
     <>
