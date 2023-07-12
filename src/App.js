@@ -1,6 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
-import MoreInfoModal from "./Components/moreInfo";
 import Widget from "./Components/widget";
 
 import "./index.scss";
@@ -11,8 +10,6 @@ function App() {
   const [latitude, setLatitude] = useState(35);
   const [longitude, setLongitude] = useState(139);
 
-  const moreInfoCard = useRef();
-
   const fetchWeatherInfo = async (lat, long) => {
     const request = `https://weather-proxy.freecodecamp.rocks/api/current?lat=${lat}&lon=${long}`;
 
@@ -20,12 +17,6 @@ function App() {
     const weatherResponse = await weatherRequest.json();
 
     return weatherResponse;
-  };
-
-  const handleDirection = (degree) => {
-    const idx = Math.floor(degree / 45 + 0.5);
-    const direcionts = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
-    return direcionts[idx % 8];
   };
 
   const findMe = () => {
@@ -49,16 +40,6 @@ function App() {
     findGeolocation.getCurrentPosition(success, eror);
   };
 
-  const handleCard = () => {
-    const moreInfo = moreInfoCard.current;
-    const hideTabIndex = moreInfoCard.current.childNodes[0].firstChild;
-
-    moreInfo.style.height === ""
-      ? (moreInfoCard.current.style.height = "100vh")
-      : (moreInfoCard.current.style.height = "");
-    hideTabIndex.tabIndex === -1 ? (hideTabIndex.tabIndex = 1) : (hideTabIndex.tabIndex = -1);
-  };
-
   useEffect(() => {
     fetchWeatherInfo(latitude, longitude).then((weather) => {
       console.log(weather);
@@ -73,17 +54,7 @@ function App() {
         findMe={findMe}
         setIsCelcius={setIsCelcius}
         isCelcius={isCelcius}
-        handleCard={handleCard}
       />
-      {/* <MoreInfoModal
-        moreInfoCard={moreInfoCard}
-        handleCard={handleCard}
-        weatherInfo={weatherInfo}
-        handleTemperatureConvert={handleTemperatureConvert}
-        temperature={temperature}
-        handleDirection={handleDirection}
-        handleTimeConvertion={handleTimeConvertion}
-      /> */}
       <footer className="fw-bold">Created by Pablo</footer>
     </div>
   );
