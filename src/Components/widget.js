@@ -1,7 +1,26 @@
 import React from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSun, faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import {
+  faSun,
+  faLocationDot,
+  faCloudBolt,
+  faCloudSunRain,
+  faCloudRain,
+  faSnowflake,
+  faSmog,
+  faCloudSun,
+} from "@fortawesome/free-solid-svg-icons";
+import { faSun as faSunRegular } from "@fortawesome/free-regular-svg-icons";
+
+const WeatherConditionIcons = [
+  [2, faCloudBolt],
+  [3, faCloudSunRain],
+  [5, faCloudRain],
+  [6, faSnowflake],
+  [7, faSmog],
+  [8, faCloudSun],
+];
 
 const Widget = (props) => {
   const { weatherInfo, findMe, setIsCelcius, isCelcius, handleCard, handleTemperatureConvert } = props;
@@ -18,8 +37,34 @@ const Widget = (props) => {
     return new Date().toLocaleDateString("en-GB", { weekday: "long", day: "numeric" });
   };
 
+  const handleWeatherConditionIcon = () => {
+    if (!weatherInfo) return;
+
+    let weatherIcon = null;
+    const weatherId = weatherInfo.weather[0].id;
+
+    if (weatherId === 800) {
+      weatherIcon = faSunRegular;
+      return weatherIcon;
+    }
+
+    const firstNumber = Number(String(weatherId)[0]);
+
+    for (const WeatherConditionIcon of WeatherConditionIcons) {
+      const [id, icon] = WeatherConditionIcon;
+
+      if (firstNumber === id) {
+        weatherIcon = icon;
+        break;
+      }
+    }
+
+    return weatherIcon;
+  };
+
   const time = handleTime();
   const day = handleDay();
+  const weatherCondition = handleWeatherConditionIcon()
 
   return (
     <>
@@ -47,7 +92,7 @@ const Widget = (props) => {
           </div>
 
           <div className="d-flex justify-content-center">
-            <img src={weatherInfo.weather[0].icon} alt="Weather Icon" className="weather-icon" />
+            <FontAwesomeIcon icon={weatherCondition} fontSize={80} />
           </div>
 
           <div>
