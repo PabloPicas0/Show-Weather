@@ -42,7 +42,6 @@ function App() {
 
   useEffect(() => {
     fetchWeatherInfo(latitude, longitude).then((weather) => {
-      console.log(weather);
       setWeatherInfo(weather);
     });
   }, []);
