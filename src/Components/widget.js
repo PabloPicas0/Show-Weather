@@ -122,13 +122,13 @@ const Widget = (props) => {
             <FontAwesomeIcon icon={weatherCondition} fontSize={80} />
           </div>
 
-          <div>
+          <div className="text-sm-center text-md-start mt-4">
             <FontAwesomeIcon icon={faSun} fontSize={19} className="me-2" />
             <span className="text-uppercase fs-5">weather</span>
           </div>
 
-          <div className="mt-4 d-flex gap-5">
-            <div className="d-flex flex-column justify-content-end">
+          <div className="mt-4 d-flex gap-5 flex-sm-column flex-md-row">
+            <div className="d-flex flex-column justify-content-end text-center">
               <div className="d-flex justify-content-center">
                 <h2
                   className="display-temperature user-select-none"
@@ -144,7 +144,7 @@ const Widget = (props) => {
               <div className="fw-bold">{day}</div>
             </div>
 
-            <div className="d-flex flex-column justify-content-end">
+            <div className="d-flex flex-column justify-content-end text-center">
               <div className="d-flex justify-content-center">
                 <img src={weatherInfo.weather[0].icon} alt="Weather Icon" className="weather-icon" />
               </div>
@@ -155,7 +155,7 @@ const Widget = (props) => {
               </div>
             </div>
 
-            <div className="d-flex gap-4">
+            <div className="d-flex gap-4 justify-content-md-start justify-content-sm-center">
               <div className="border-start ps-3 text-center">
                 <p className="mb-0">Sunrise</p>
 
