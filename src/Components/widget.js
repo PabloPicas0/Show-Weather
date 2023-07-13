@@ -100,8 +100,8 @@ const Widget = (props) => {
           <span className="visually-hidden">Loading...</span>
         </div>
       ) : (
-        <div className="widget-container">
-          <div className="d-flex justify-content-between">
+        <div className="widget-container px-4">
+          <div className="d-flex justify-content-between flex-column flex-sm-row text-center text-sm-start mb-4 mb-sm-0">
             <h2 className="text-capitalize fw-bold">{weatherInfo.weather[0].description}</h2>
 
             <div>
@@ -122,12 +122,12 @@ const Widget = (props) => {
             <FontAwesomeIcon icon={weatherCondition} fontSize={80} />
           </div>
 
-          <div className="text-sm-center text-md-start mt-4">
+          <div className=" text-center text-md-start mt-4">
             <FontAwesomeIcon icon={faSun} fontSize={19} className="me-2" />
             <span className="text-uppercase fs-5">weather</span>
           </div>
 
-          <div className="mt-4 d-flex gap-5 flex-sm-column flex-md-row">
+          <div className="mt-4 d-flex gap-5 flex-column flex-md-row">
             <div className="d-flex flex-column justify-content-end text-center">
               <div className="d-flex justify-content-center">
                 <h2
@@ -155,7 +155,7 @@ const Widget = (props) => {
               </div>
             </div>
 
-            <div className="d-flex gap-4 justify-content-md-start justify-content-sm-center">
+            <div className="d-flex gap-4 justify-content-center justify-content-md-start flex-column flex-sm-row info-cards-wrapper">
               <div className="border-start ps-3 text-center">
                 <p className="mb-0">Sunrise</p>
 

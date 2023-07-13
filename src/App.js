@@ -48,13 +48,8 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <Widget
-        weatherInfo={weatherInfo}
-        findMe={findMe}
-        setIsCelcius={setIsCelcius}
-        isCelcius={isCelcius}
-      />
+    <div className="App py-5">
+      <Widget weatherInfo={weatherInfo} findMe={findMe} setIsCelcius={setIsCelcius} isCelcius={isCelcius} />
       <footer className="fw-bold">Created by Pablo</footer>
     </div>
   );
