@@ -1,6 +1,6 @@
 # Weather App
 
-A simple weather app that shows weaher conditions in you're local area.
+A simple weather app that shows weather conditions in you're local area.
 
 This project is my solution for [Coding interview prep - Show the local weather] created by [freeCodeCamp].
 
